@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFF8F0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="A quiet little garden to wander through.">
+  <title>A Garden of Little Things</title>
+
+  <!-- Typography: elegant serif for headings, clean sans-serif for body. System fonts are used as fallbacks (works offline). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Optional: Tailwind utility classes are available, but the site's design does NOT depend on it (all styling lives in style.css). -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body data-stage="1">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <noscript>
+    <p class="noscript-note">This little garden needs JavaScript to grow. Please enable it and refresh the page.</p>
+  </noscript>
+
+  <!-- ========== SVG SPRITE: reusable botanical illustrations ========== -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Daisy: 10 slender petals. Colours come from CSS variables (--petal, --petal-edge, --core). -->
+      <symbol id="b-daisy" viewBox="0 0 100 100">
+        <g style="fill:var(--petal,#F7E9E9);stroke:var(--petal-edge,#D9A6AE);stroke-width:1">
+          <ellipse cx="50" cy="27" rx="7.5" ry="21"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(36 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(72 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(108 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(144 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(180 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(216 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(252 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(288 50 50)"/>
+          <ellipse cx="50" cy="27" rx="7.5" ry="21" transform="rotate(324 50 50)"/>
+        </g>
+        <circle cx="50" cy="50" r="11" style="fill:var(--core,#77545C)"/>
+        <circle cx="50" cy="50" r="5" style="fill:var(--core-light,#D9A6AE)" opacity=".65"/>
+      </symbol>
+
+      <!-- Cosmos: 6 broad, teardrop petals. -->
+      <symbol id="b-cosmos" viewBox="0 0 100 100">
+        <g style="fill:var(--petal,#F7E9E9);stroke:var(--petal-edge,#D9A6AE);stroke-width:1.2;stroke-linejoin:round">
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z"/>
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z" transform="rotate(60 50 50)"/>
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z" transform="rotate(120 50 50)"/>
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z" transform="rotate(180 50 50)"/>
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z" transform="rotate(240 50 50)"/>
+          <path d="M50 50 C28 40 31 11 50 7 C69 11 72 40 50 50Z" transform="rotate(300 50 50)"/>
+        </g>
+        <circle cx="50" cy="50" r="8" style="fill:var(--core,#77545C)"/>
+        <circle cx="50" cy="50" r="3.5" style="fill:var(--core-light,#D9A6AE)" opacity=".7"/>
+      </symbol>
+
+      <!-- Tulip: a soft cup with an inner petal. -->
+      <symbol id="b-tulip" viewBox="0 0 100 100">
+        <path d="M27 28 C26 62 37 80 50 82 C63 80 74 62 73 28 C66 40 58 36 50 18 C42 36 34 40 27 28Z"
+              style="fill:var(--petal,#D9A6AE);stroke:var(--petal-edge,#77545C);stroke-width:1.2;stroke-linejoin:round"/>
+        <path d="M50 18 C43 40 39 62 50 82 C61 62 57 40 50 18Z" style="fill:var(--petal-deep,#C98F99)" opacity=".75"/>
+      </symbol>
+
+      <!-- Peony: layered rounded petals. -->
+      <symbol id="b-peony" viewBox="0 0 100 100">
+        <g style="fill:var(--petal,#F7E9E9);stroke:var(--petal-edge,#D9A6AE);stroke-width:1">
+          <circle cx="77" cy="50" r="16"/><circle cx="69.1" cy="69.1" r="16"/>
+          <circle cx="50" cy="77" r="16"/><circle cx="30.9" cy="69.1" r="16"/>
+          <circle cx="23" cy="50" r="16"/><circle cx="30.9" cy="30.9" r="16"/>
+          <circle cx="50" cy="23" r="16"/><circle cx="69.1" cy="30.9" r="16"/>
+        </g>
+        <g style="fill:var(--petal-deep,#EBC6CB);stroke:var(--petal-edge,#D9A6AE);stroke-width:.8">
+          <circle cx="64" cy="50" r="11"/><circle cx="57" cy="62.1" r="11"/>
+          <circle cx="43" cy="62.1" r="11"/><circle cx="36" cy="50" r="11"/>
+          <circle cx="43" cy="37.9" r="11"/><circle cx="57" cy="37.9" r="11"/>
+        </g>
+        <circle cx="50" cy="50" r="9" style="fill:var(--core,#D9A6AE)"/>
+      </symbol>
+
+      <!-- Botanical sprig used for the corner borders. Grows from bottom-left to top-right. -->
+      <symbol id="s-sprig" viewBox="0 0 200 200">
+        <path d="M6 196 C46 160 66 108 118 68 C148 45 170 28 192 12" fill="none" stroke="#A8B5A0" stroke-width="2" stroke-linecap="round"/>
+        <g fill="#A8B5A0">
+          <path transform="translate(40 160) rotate(-95)" d="M0 0 C8 -11 24 -11 34 0 C24 11 8 11 0 0Z"/>
+          <path transform="translate(80 112) rotate(-100)" d="M0 0 C8 -11 24 -11 34 0 C24 11 8 11 0 0Z"/>
+          <path transform="translate(124 66) rotate(-108)" d="M0 0 C7 -10 20 -10 28 0 C20 10 7 10 0 0Z"/>
+        </g>
+        <g fill="#BFC9B8">
+          <path transform="translate(52 148) rotate(8)" d="M0 0 C8 -11 24 -11 34 0 C24 11 8 11 0 0Z"/>
+          <path transform="translate(92 100) rotate(2)" d="M0 0 C8 -11 24 -11 34 0 C24 11 8 11 0 0Z"/>
+          <path transform="translate(138 56) rotate(-4)" d="M0 0 C7 -10 20 -10 28 0 C20 10 7 10 0 0Z"/>
+        </g>
+        <g fill="#D9A6AE">
+          <circle cx="22" cy="176" r="3"/><circle cx="104" cy="82" r="3.5"/><circle cx="150" cy="44" r="3"/>
+        </g>
+        <use href="#b-cosmos" x="158" y="-2" width="42" height="42"/>
+      </symbol>
+
+      <!-- Small ornamental divider. -->
+      <symbol id="s-divider" viewBox="0 0 160 24">
+        <path d="M4 12 H62 M98 12 H156" stroke="#D9A6AE" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <circle cx="80" cy="12" r="3.5" fill="#D9A6AE"/>
+        <path d="M71 12 C67 5 60 5 55 9 C60 16 67 16 71 12Z" fill="#A8B5A0"/>
+        <path d="M89 12 C93 5 100 5 105 9 C100 16 93 16 89 12Z" fill="#A8B5A0"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ========== BACKDROP: soft colour washes + botanical corner borders ========== -->
+  <div class="backdrop" aria-hidden="true">
+    <svg class="corner corner--bl"><use href="#s-sprig"/></svg>
+    <svg class="corner corner--tr"><use href="#s-sprig"/></svg>
+    <svg class="corner corner--tl"><use href="#s-sprig"/></svg>
+    <svg class="corner corner--br"><use href="#s-sprig"/></svg>
+  </div>
+
+  <!-- Floating petals (created by interactions.js) -->
+  <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
+
+  <!-- ========== SITE NAVIGATION (hidden on the welcome screen) ========== -->
+  <header class="site-nav" id="siteNav" inert>
+    <button class="nav-back" id="backButton" type="button" aria-label="Go back to the previous section">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <nav class="progress" aria-label="Sections">
+      <ol class="progress__list" id="progressList"><!-- Built by main.js from content.js --></ol>
+    </nav>
+
+    <p class="nav-name" title="Visiting as">
+      <svg viewBox="0 0 100 100" aria-hidden="true" style="--petal:#D9A6AE;--petal-edge:#C98F99;--core:#FFF8F0"><use href="#b-cosmos" width="100" height="100"/></svg>
+      <span data-visitor-name>friend</span>
+    </p>
+  </header>
+
+  <!-- ========== STAGES ========== -->
+  <main class="app" id="main">
+
+    <!-- STAGE 1: WELCOME -->
+    <section class="stage stage--welcome is-active" id="stage-welcome" data-stage="1" aria-labelledby="welcome-title">
+      <div class="welcome-card">
+        <svg class="welcome-bloom reveal" style="--i:0;--petal:#F7E9E9;--petal-edge:#D9A6AE;--core:#77545C" viewBox="0 0 100 100" aria-hidden="true"><use href="#b-cosmos" width="100" height="100"/></svg>
+
+        <p class="eyebrow reveal" style="--i:1" data-content="welcome.eyebrow">Come in, and take your time</p>
+        <h1 class="welcome-title reveal" style="--i:2" id="welcome-title" data-content="welcome.heading">A Garden of Little Things</h1>
+        <svg class="divider reveal" style="--i:3" viewBox="0 0 160 24" aria-hidden="true"><use href="#s-divider"/></svg>
+        <p class="welcome-subtitle reveal" style="--i:3" data-content="welcome.subtitle">Some of the loveliest things are small, and they grow best when we slow down. Come and wander for a while.</p>
+
+        <form class="name-form reveal" style="--i:4" id="welcomeForm" novalidate>
+          <label class="name-form__label" for="visitorName" data-content="welcome.nameLabel">What may we call you?</label>
+          <input class="name-form__input" id="visitorName" name="visitorName" type="text"
+                 autocomplete="given-name" autocapitalize="words" spellcheck="false" enterkeyhint="go"
+                 placeholder="Your name" data-content-placeholder="welcome.namePlaceholder"
+                 aria-describedby="nameError nameNote" aria-invalid="false">
+          <p class="name-form__error" id="nameError" role="alert"></p>
+
+          <button class="btn" id="enterButton" type="submit">
+            <span data-content="welcome.buttonLabel">Enter the garden</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <p class="name-form__note" id="nameNote" data-content="welcome.privacyNote">Your name is only remembered for this visit, in this browser.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- STAGE 2: THE GARDEN -->
+    <section class="stage stage--garden" id="stage-garden" data-stage="2" aria-labelledby="garden-title" inert>
+      <div class="garden">
+        <p class="eyebrow reveal" style="--i:0" data-content="garden.eyebrow">The Garden</p>
+        <h2 class="garden__title reveal" style="--i:1" id="garden-title" tabindex="-1" data-content="garden.heading">Welcome, friend.</h2>
+        <p class="garden__message reveal" style="--i:2" data-content="garden.message">We are so glad you are here. Wander slowly, and touch whatever catches your eye.</p>
+        <p class="garden__hint reveal" style="--i:3" data-content="garden.hint">Touch a flower to hear what it has to whisper.</p>
+
+        <div class="flower-bed reveal" style="--i:4" role="group" aria-label="Flowers in the garden">
+          <button class="flower flower--daisy-blush" type="button" style="--i:0" aria-label="Flower 1 of 5. Touch to hear its whisper.">
+            <svg viewBox="0 0 100 200" focusable="false" aria-hidden="true">
+              <g class="flower__stem">
+                <path d="M50 78 C47 125 54 160 50 200" fill="none" stroke="#A8B5A0" stroke-width="3" stroke-linecap="round"/>
+                <path d="M50 150 C34 150 22 140 18 126 C34 124 46 134 50 150Z" fill="#A8B5A0"/>
+                <path d="M51 172 C66 170 78 160 82 146 C66 144 54 154 51 172Z" fill="#BFC9B8"/>
+              </g>
+              <g class="flower__bloom"><use href="#b-daisy" width="100" height="100"/></g>
+            </svg>
+          </button>
+
+          <button class="flower flower--tulip-rose" type="button" style="--i:1" aria-label="Flower 2 of 5. Touch to hear its whisper.">
+            <svg viewBox="0 0 100 200" focusable="false" aria-hidden="true">
+              <g class="flower__stem">
+                <path d="M50 78 C53 120 46 160 50 200" fill="none" stroke="#A8B5A0" stroke-width="3" stroke-linecap="round"/>
+                <path d="M49 160 C30 160 14 146 10 124 C30 124 46 138 49 160Z" fill="#A8B5A0"/>
+                <path d="M51 178 C68 176 84 164 88 146 C70 146 54 158 51 178Z" fill="#BFC9B8"/>
+              </g>
+              <g class="flower__bloom"><use href="#b-tulip" width="100" height="100"/></g>
+            </svg>
+          </button>
+
+          <button class="flower flower--peony" type="button" style="--i:2" aria-label="Flower 3 of 5. Touch to hear its whisper.">
+            <svg viewBox="0 0 100 200" focusable="false" aria-hidden="true">
+              <g class="flower__stem">
+                <path d="M50 78 C46 120 55 158 50 200" fill="none" stroke="#A8B5A0" stroke-width="3" stroke-linecap="round"/>
+                <path d="M50 140 C34 140 22 128 18 114 C34 112 46 124 50 140Z" fill="#A8B5A0"/>
+                <path d="M51 166 C66 164 78 154 82 140 C66 138 54 148 51 166Z" fill="#BFC9B8"/>
+              </g>
+              <g class="flower__bloom"><use href="#b-peony" width="100" height="100"/></g>
+            </svg>
+          </button>
+
+          <button class="flower flower--cosmos" type="button" style="--i:3" aria-label="Flower 4 of 5. Touch to hear its whisper.">
+            <svg viewBox="0 0 100 200" focusable="false" aria-hidden="true">
+              <g class="flower__stem">
+                <path d="M50 78 C54 120 47 160 50 200" fill="none" stroke="#A8B5A0" stroke-width="3" stroke-linecap="round"/>
+                <path d="M50 154 C34 154 22 144 18 130 C34 128 46 138 50 154Z" fill="#A8B5A0"/>
+                <path d="M51 176 C66 174 78 164 82 150 C66 148 54 158 51 176Z" fill="#BFC9B8"/>
+              </g>
+              <g class="flower__bloom"><use href="#b-cosmos" width="100" height="100"/></g>
+            </svg>
+          </button>
+
+          <button class="flower flower--daisy-rose" type="button" style="--i:4" aria-label="Flower 5 of 5. Touch to hear its whisper.">
+            <svg viewBox="0 0 100 200" focusable="false" aria-hidden="true">
+              <g class="flower__stem">
+                <path d="M50 78 C48 120 53 162 50 200" fill="none" stroke="#A8B5A0" stroke-width="3" stroke-linecap="round"/>
+                <path d="M50 148 C34 148 22 138 18 124 C34 122 46 132 50 148Z" fill="#A8B5A0"/>
+                <path d="M51 170 C66 168 78 158 82 144 C66 142 54 152 51 170Z" fill="#BFC9B8"/>
+              </g>
+              <g class="flower__bloom"><use href="#b-daisy" width="100" height="100"/></g>
+            </svg>
+          </button>
+        </div>
+
+        <div class="whisper reveal" style="--i:5">
+          <p class="whisper__text" id="whisperText" role="status" aria-live="polite">Choose a flower and listen closely.</p>
+          <p class="whisper__count" id="whisperCount">0 of 5 whispers found</p>
+          <div class="whisper__dots" id="whisperDots" aria-hidden="true"></div>
+        </div>
+
+        <div class="path-cta reveal" style="--i:6">
+          <div class="stepping-stones" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p class="path-cta__hint" data-content="garden.nextHint">When you feel ready, there is a path leading further in.</p>
+          <button class="btn" id="nextStageButton" type="button">
+            <span data-content="garden.nextButtonLabel">Follow the garden path</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <button class="link-button reveal" style="--i:7" id="changeNameButton" type="button" data-content="garden.changeNameLabel">Not you? Change name</button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         FUTURE STAGES (not built yet). Each one follows the same pattern:
+           <section class="stage" id="stage-xyz" data-stage="N" inert> ... </section>
+         then registers itself in main.js with StageManager.register({...}).
+
+         STAGE 3: THE MEMORY COLLECTION  (data-stage="3")
+         STAGE 4: THE LETTER COLLECTION  (data-stage="4")
+         STAGE 5: INTERACTIVE DISCOVERIES (data-stage="5")
+         STAGE 6: THE FINAL REVEAL        (data-stage="6")
+         ====================================================================== -->
+  </main>
+
+  <!-- Gentle message bubble -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Order matters: content -> interactions (helpers) -> main (app logic) -->
+  <script src="content.js"></script>
+  <script src="interactions.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
